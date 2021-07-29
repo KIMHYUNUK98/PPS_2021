@@ -1,33 +1,21 @@
-// 숫자가 주어지면 각 digit별로 제곱을 해서 더하는 알고리즘을 배울 수 있었음
-// unordered_map을 사용해서 해당 숫자가 visited한 것인지의 유무를 판단하는 map을 만드는 연습
-// 생각필요..
-
 class Solution {
 public:
-    
-    int sums(int n) {
-        int plus = 0;
-        while(n >= 10) {
-            plus += (n%10) * (n%10);
-            n = n/10;
-        }
-        plus += n*n;
-            
-        return plus;
-    }
-    
-    bool isHappy(int n) {
-        unordered_map<int, bool> mp;
-        int sum = sums(n);
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> answer;
+        unordered_map<int,int> mp;
         
-        while(sum != 1) {
-            if(mp[sum] == true) return false;
-            else mp[sum] = true;
-            
-            sum = sums(sum);
+        for(int i = 0 ; i < nums.size() ; i++) {
+            mp[nums[i]] = i;
         }
         
-        if(sum == 1) return true;
-        else return false;
+        for(int i = 0 ; i < nums.size() ; i++) {
+            int ans = target - nums[i];
+            if(mp.count(ans) > 0 && mp[ans] != i) {
+                answer.push_back(i); 
+                answer.push_back(mp[ans]); 
+                break;
+            }
+        }
+        return answer;
     }
 };
